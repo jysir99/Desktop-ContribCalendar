@@ -38,8 +38,10 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <!-- 限制中间部分的宽度为自动适应内容，防止挤占右侧空间 -->
             <ColumnDefinition Width="Auto"/>
+            <!-- 右侧年份列表占据剩余空间，方便居中对齐 -->
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -115,6 +117,6 @@
         <Grid Grid.Column="1" Grid.Row="1" Name="ContributionsGrid"/>
 
         <!-- 右侧：年份列表 -->
-        <StackPanel Grid.Column="2" Grid.Row="1" Name="YearListPanel" Orientation="Vertical" VerticalAlignment="Center" Margin="6,0,4,0"/>
+        <StackPanel Grid.Column="2" Grid.Row="1" Name="YearListPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
     </Grid>
 </UserControl>

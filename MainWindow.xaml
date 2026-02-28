@@ -44,40 +44,27 @@
 
         <!-- 缩放容器 -->
         <Viewbox Name="ScaleViewbox" Stretch="Uniform">
-            <Grid Width="730" Height="110">
-                <!-- 主边框，毛玻璃效果 -->
-                <Border>
+            <!-- 外层带外边距的 Grid 留出阴影空间 -->
+            <Grid Width="740" Height="135">
+                <Border Margin="10"
+                        Background="#F5F5F5"
+                        CornerRadius="12"
+                        BorderBrush="#E0E0E0"
+                        BorderThickness="1">
                     <Border.Effect>
-                        <DropShadowEffect Color="#000000" Opacity="0.3" BlurRadius="30" ShadowDepth="0"/>
+                        <DropShadowEffect Color="#000000" Opacity="0.15" BlurRadius="20" ShadowDepth="2" Direction="270"/>
                     </Border.Effect>
-
+                    
                     <Grid>
-                        <!-- 毛玻璃背景层 -->
-                        <Border CornerRadius="12">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Color="#C0E8F0F8" Offset="0"/>
-                                    <GradientStop Color="#B0D8E8F0" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                            <Border.Clip>
-                                <RectangleGeometry RadiusX="12" RadiusY="12" Rect="0,0,720,125"/>
-                            </Border.Clip>
+                        <!-- 内容层：带内边距 -->
+                        <Border Padding="8,4,8,0">
+                            <!-- 内容区域 -->
+                            <Grid Name="ContentGrid"/>
                         </Border>
 
-                        <!-- 内容层 -->
-                        <Border CornerRadius="12" BorderBrush="#40FFFFFF" BorderThickness="1" Padding="8,4,8,0">
-                            <Border.Clip>
-                                <RectangleGeometry RadiusX="12" RadiusY="12" Rect="0,0,720,125"/>
-                            </Border.Clip>
-                            <Grid>
-                                <!-- 内容区域 -->
-                                <Grid Name="ContentGrid"/>
-
-                                <Grid Name="LoadingOverlay" Visibility="Collapsed" Background="#40000000">
-                                    <controls:LoadingOverlay HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Grid>
+                        <!-- 加载层：覆盖在内容层之上，不受内边距控制 -->
+                        <Border Name="LoadingOverlay" Visibility="Collapsed" Background="#40000000" CornerRadius="12">
+                            <controls:LoadingOverlay HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </Grid>
                 </Border>
