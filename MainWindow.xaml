@@ -20,6 +20,7 @@
         <ContextMenu Name="AppContextMenu" Closed="ContextMenu_Closed">
             <MenuItem Header="刷新数据" Name="RefreshMenuItem" Click="Refresh_Click"/>
             <MenuItem Header="设置..." Name="SettingsMenuItem" Click="Settings_Click"/>
+            <MenuItem Header="关于 (@Jysir GitHub)" Click="About_Click"/>
             <Separator/>
             <MenuItem Header="退出" Name="ExitMenuItem" Click="Exit_Click"/>
         </ContextMenu>
@@ -36,6 +37,7 @@
                     <MenuItem Header="显示/隐藏" Click="TrayShow_Click"/>
                     <MenuItem Header="刷新数据" Click="Refresh_Click"/>
                     <MenuItem Header="设置..." Click="Settings_Click"/>
+                    <MenuItem Header="关于 (@Jysir GitHub)" Click="About_Click"/>
                     <Separator/>
                     <MenuItem Header="退出" Click="Exit_Click"/>
                 </ContextMenu>
@@ -58,8 +60,20 @@
                     <Grid>
                         <!-- 内容层：带内边距 -->
                         <Border Padding="8,4,8,0">
-                            <!-- 内容区域 -->
-                            <Grid Name="ContentGrid"/>
+                            <Grid>
+                                <!-- 水印层 -->
+                                <TextBlock Text="@Jysir" 
+                                           Foreground="#10000000" 
+                                           FontSize="36" 
+                                           FontWeight="Bold" 
+                                           HorizontalAlignment="Right" 
+                                           VerticalAlignment="Bottom"
+                                           Margin="0,0,50,0"
+                                           IsHitTestVisible="False"/>
+                                           
+                                <!-- 内容区域 -->
+                                <Grid Name="ContentGrid"/>
+                            </Grid>
                         </Border>
 
                         <!-- 加载层：覆盖在内容层之上，不受内边距控制 -->

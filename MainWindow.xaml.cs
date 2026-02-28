@@ -143,6 +143,20 @@ public partial class MainWindow : Window
         settingsWindow.ShowDialog();
     }
 
+    private void About_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var psi = new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = "https://github.com/jysir99/Desktop-ContribCalendar",
+                UseShellExecute = true
+            };
+            System.Diagnostics.Process.Start(psi);
+        }
+        catch { }
+    }
+
     private void Exit_Click(object sender, RoutedEventArgs e)
     {
         Application.Current.Shutdown();
