@@ -20,7 +20,7 @@
         <ContextMenu Name="AppContextMenu" Closed="ContextMenu_Closed">
             <MenuItem Header="刷新数据" Name="RefreshMenuItem" Click="Refresh_Click"/>
             <MenuItem Header="设置..." Name="SettingsMenuItem" Click="Settings_Click"/>
-            <MenuItem Header="关于 (@Jysir GitHub)" Click="About_Click"/>
+            <MenuItem Header="关于 (@Jysir99 GitHub)" Click="About_Click"/>
             <Separator/>
             <MenuItem Header="退出" Name="ExitMenuItem" Click="Exit_Click"/>
         </ContextMenu>
@@ -37,7 +37,7 @@
                     <MenuItem Header="显示/隐藏" Click="TrayShow_Click"/>
                     <MenuItem Header="刷新数据" Click="Refresh_Click"/>
                     <MenuItem Header="设置..." Click="Settings_Click"/>
-                    <MenuItem Header="关于 (@Jysir GitHub)" Click="About_Click"/>
+                    <MenuItem Header="关于 (@Jysir99 GitHub)" Click="About_Click"/>
                     <Separator/>
                     <MenuItem Header="退出" Click="Exit_Click"/>
                 </ContextMenu>

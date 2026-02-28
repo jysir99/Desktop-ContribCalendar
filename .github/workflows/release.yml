@@ -1,0 +1,34 @@
+name: Build and Release WPF App
+
+on:
+  push:
+    tags:
+      - 'v*' # 当您向 GitHub 推送以 v 开头的 Tag 时触发（例如：v1.0.0）
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest 
+
+    permissions:
+      contents: write # 允许创建 GitHub Release
+
+    steps:
+    - name: 检出代码 (Checkout Code)
+      uses: actions/checkout@v4
+
+    - name: 安装 .NET 8 环境
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: 编译并单独打包发布文件 (Publish Single File)
+      run: dotnet publish ContribCalendar.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o ./publish_output
+
+    - name: 压缩文件为 ZIP (Compress Output)
+      run: Compress-Archive -Path ./publish_output/* -DestinationPath ContribCalendar-Windows-x64.zip
+
+    - name: 自动创建 Release 并上传压缩包 (Create GitHub Release)
+      uses: softprops/action-gh-release@v2
+      with:
+        files: ContribCalendar-Windows-x64.zip
+        generate_release_notes: true
