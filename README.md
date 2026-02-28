@@ -1,4 +1,4 @@
-# 贡献日历 (ContribCalendar)
+# 桌面贡献日历 (Desktop ContribCalendar)
 
 一个轻量级的 Windows 桌面小部件，以 GitHub 风格的贡献日历可视化您的本地文件夹活动。
 
