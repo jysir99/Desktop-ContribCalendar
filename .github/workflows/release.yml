@@ -21,14 +21,40 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: 编译并单独打包发布文件 (Publish Single File)
-      run: dotnet publish ContribCalendar.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o ./publish_output
+    - name: 编译独立部署版本 (Self-Contained - 较大但免装环境)
+      run: dotnet publish ContribCalendar.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o ./publish_self_contained
+
+    - name: 编译框架依赖版本 (Framework-Dependent - 小巧但需装环境)
+      run: dotnet publish ContribCalendar.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -o ./publish_framework_dependent
 
     - name: 压缩文件为 ZIP (Compress Output)
-      run: Compress-Archive -Path ./publish_output/* -DestinationPath ContribCalendar-Windows-x64.zip
+      run: |
+        Compress-Archive -Path ./publish_self_contained/* -DestinationPath ContribCalendar-Windows-x64-SelfContained.zip
+        Compress-Archive -Path ./publish_framework_dependent/* -DestinationPath ContribCalendar-Windows-x64-FrameworkDependent.zip
+
+    - name: 生成发布说明 (Generate Release Notes)
+      run: |
+        $ReleaseNotes = @"
+        ## 🎉 自动构建版本发布 (Automated Release)
+
+        这里提供了两个版本的 Windows 应用程序供您下载：
+
+        ### 📦 1. 独立运行增强版 (Self-Contained)
+        **文件**: `ContribCalendar-Windows-x64-SelfContained.zip` (较大)
+        **说明**: 内置了完整的 .NET 8 运行环境。**下载解压后直接双击即可运行**，无需在电脑上额外安装任何微软框架。适合不想折腾运行环境的用户。
+
+        ### ⚡ 2. 轻量框架依赖版 (Framework-Dependent)
+        **文件**: `ContribCalendar-Windows-x64-FrameworkDependent.zip` (较小, ~4MB)
+        **说明**: 原汁原味的小巧版本。**需要您的电脑已经安装了 [`.NET 8 Desktop Runtime`](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)** 才能运行。如果您打不开，请下载并安装上述链接中的 "Desktop Runtime"。适合已经有 .NET 环境或喜欢小体积软件的用户。
+
+        > ⚠️ **注意**: 由于本工具采用了 WPF (Windows Presentation Foundation) 开发原生桌面体验，因此**仅支持 Windows 操作系统**，无法跨平台生成 macOS 或 Linux 版本。
+        "@
+        Set-Content -Path release_notes.md -Value $ReleaseNotes -Encoding UTF8
 
     - name: 自动创建 Release 并上传压缩包 (Create GitHub Release)
       uses: softprops/action-gh-release@v2
       with:
-        files: ContribCalendar-Windows-x64.zip
-        generate_release_notes: true
+        files: |
+          ContribCalendar-Windows-x64-SelfContained.zip
+          ContribCalendar-Windows-x64-FrameworkDependent.zip
+        body_path: release_notes.md
