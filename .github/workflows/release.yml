@@ -22,10 +22,10 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: 编译独立部署版本 (Self-Contained - 较大但免装环境)
-      run: dotnet publish ContribCalendar.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o ./publish_self_contained
+      run: dotnet publish ContribCalendar.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o ./publish_self_contained
 
     - name: 编译框架依赖版本 (Framework-Dependent - 小巧但需装环境)
-      run: dotnet publish ContribCalendar.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -o ./publish_framework_dependent
+      run: dotnet publish ContribCalendar.csproj -c Release -r win-x64 --no-self-contained -p:PublishSingleFile=false -o ./publish_framework_dependent
 
     - name: 压缩文件为 ZIP (Compress Output)
       run: |
