@@ -60,20 +60,8 @@
                     <Grid>
                         <!-- 内容层：带内边距 -->
                         <Border Padding="8,4,8,0">
-                            <Grid>
-                                <!-- 水印层 -->
-                                <TextBlock Text="@Jysir" 
-                                           Foreground="#10000000" 
-                                           FontSize="36" 
-                                           FontWeight="Bold" 
-                                           HorizontalAlignment="Right" 
-                                           VerticalAlignment="Bottom"
-                                           Margin="0,0,50,0"
-                                           IsHitTestVisible="False"/>
-                                           
-                                <!-- 内容区域 -->
-                                <Grid Name="ContentGrid"/>
-                            </Grid>
+                            <!-- 内容区域 -->
+                            <Grid Name="ContentGrid"/>
                         </Border>
 
                         <!-- 加载层：覆盖在内容层之上，不受内边距控制 -->
