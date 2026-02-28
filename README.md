@@ -197,7 +197,6 @@ ContribCalendar/
 ## 📮 联系方式
 
 - 提交 Issue: [GitHub Issues](../../issues)
-- 邮箱: your.email@example.com
 
 ---
 
